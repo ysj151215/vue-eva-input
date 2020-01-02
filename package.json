@@ -1,0 +1,20 @@
+{
+  "name": "vue-eva-input",
+  "version": "0.0.1-alpha",
+  "description": "A beautiful input component based on Eva Design System and Vue.",
+  "main": "./dist/vue-eva-input.js",
+  "repository": "git@github.com:ysj151215/vue-eva-input.git",
+  "author": "ysj151215 <jailjt.editor@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vue serve src/EvaInput.vue",
+    "build": "vue build -t lib -n vue-eva-input src/EvaInput.vue && cp dist/vue-eva-input.umd.min.js dist/vue-eva-input.js"
+  },
+  "files": [
+    "dist/*"
+  ],
+  "devDependencies": {
+    "node-sass": "^4.13.0",
+    "sass-loader": "^8.0.0"
+  }
+}
