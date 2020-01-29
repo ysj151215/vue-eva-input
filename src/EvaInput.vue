@@ -4,6 +4,7 @@
       class="eva-input__inner"
       v-bind="$attrs"
       :class="[{
+        'has-icon': suffixIcon,
         'is-danger': status === 'danger',
         'is-focus': isFocus,
         'is-info': status === 'info',
@@ -20,7 +21,18 @@
       @change="handleChange"
       @focus="handleFocus"
       @input="handleInput"
-      @keypress="handleKeypress"
+    />
+
+    <i
+      class="eva-input__icon eva"
+      :class="[`eva-${suffixIcon}`, {
+        'is-danger': status === 'danger',
+        'is-disabled': disabled,
+        'is-focus': isFocus,
+        'is-info': status === 'info',
+        'is-success': status === 'success',
+        'is-warning': status === 'warning'
+      }]"
     />
   </div>
 </template>
@@ -34,10 +46,13 @@ export default {
     clearable: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
     focusPlaceholder: { type: String, default: "Typing..." },
+    name: { type: String, default: "github" },
     numberOnly: { type: Boolean, default: false },
     placeholder: { type: String, default: "Placeholder" },
     readonly: Boolean,
-    status: { type: String, default: "success" },
+    size: { type: String, default: "giant" },
+    status: String,
+    suffixIcon: String,
     tabindex: String,
     type: { type: String, default: "text" },
     value: [String, Number]
@@ -73,14 +88,14 @@ export default {
       let _value = e.target.value;
       this.stringValue = _value || null;
       this.$emit("input", _value || null);
-    },
-    handleKeypress() {}
+    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap");
+@import "~eva-icons/style/eva-icons.css";
 
 $--color-basic-100: #ffffff;
 $--color-basic-200: #f7f9fc;
@@ -90,9 +105,6 @@ $--color-basic-500: #c5cee0;
 $--color-basic-600: #8f9bb3;
 $--color-basic-700: #2e3a59;
 $--color-basic-800: #222b45;
-$--color-basic-900: #192038;
-$--color-basic-1000: #151a30;
-$--color-basic-1100: #101426;
 $--color-danger-500: #ff3d71;
 $--color-info-500: #0095ff;
 $--color-primary-500: #3366ff;
@@ -102,11 +114,14 @@ $--color-warning-500: #ffaa00;
 .eva-input {
   box-sizing: border-box;
   display: inline-block;
+  position: relative;
+  width: 343px;
 
   #{&}__inner {
+    box-sizing: border-box;
     display: block;
     height: 48px;
-    width: 343px;
+    width: 100%;
     padding: 0 16px;
     font-family: "Open Sans", sans-serif;
     font-size: 15px;
@@ -136,15 +151,11 @@ $--color-warning-500: #ffaa00;
     &:hover:not(:disabled) {
       background: $--color-basic-300;
     }
+    &.has-icon {
+      padding-right: 48px;
+    }
     &.is-danger {
       border-color: $--color-danger-500;
-    }
-    &.is-focus {
-      border-color: $--color-primary-500 !important;
-
-      &::placeholder {
-        font-weight: 600;
-      }
     }
     &.is-info {
       border-color: $--color-info-500;
@@ -155,6 +166,13 @@ $--color-warning-500: #ffaa00;
     &.is-warning {
       border-color: $--color-warning-500;
     }
+    &.is-focus {
+      border-color: $--color-primary-500;
+
+      &::placeholder {
+        font-weight: 600;
+      }
+    }
     &:disabled {
       cursor: not-allowed;
       border: 1px solid $--color-basic-400;
@@ -162,6 +180,36 @@ $--color-warning-500: #ffaa00;
       &::placeholder {
         color: rgba($--color-basic-600, 0.48);
       }
+    }
+  }
+
+  #{&}__icon {
+    pointer-events: none;
+    display: block;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 24px;
+    color: $--color-basic-600;
+    transition: 0.15s;
+
+    &.is-danger {
+      color: $--color-danger-500;
+    }
+    &.is-info {
+      color: $--color-info-500;
+    }
+    &.is-success {
+      color: $--color-success-500;
+    }
+    &.is-warning {
+      color: $--color-warning-500;
+    }
+    &.is-focus {
+      color: $--color-primary-500;
+    }
+    &.is-disabled {
+      color: rgba($--color-basic-600, 0.4);
     }
   }
 }
