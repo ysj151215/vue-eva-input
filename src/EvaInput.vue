@@ -8,6 +8,7 @@
         'is-danger': status === 'danger',
         'is-focus': isFocus,
         'is-info': status === 'info',
+        'is-primary': primary,
         'is-success': status === 'success',
         'is-warning': status === 'warning'
       }]"
@@ -30,6 +31,7 @@
         'is-disabled': disabled,
         'is-focus': isFocus,
         'is-info': status === 'info',
+        'is-primary': primary,
         'is-success': status === 'success',
         'is-warning': status === 'warning'
       }]"
@@ -39,18 +41,15 @@
 
 <script>
 export default {
-  name: "EvaButton",
+  name: "EvaInput",
   inheritAttrs: false,
   props: {
     autocomplete: { type: String, default: "off" },
-    clearable: { type: Boolean, default: false },
-    disabled: { type: Boolean, default: false },
+    disabled: Boolean,
     focusPlaceholder: { type: String, default: "Typing..." },
-    name: { type: String, default: "github" },
-    numberOnly: { type: Boolean, default: false },
-    placeholder: { type: String, default: "Placeholder" },
+    placeholder: String,
+    primary: Boolean,
     readonly: Boolean,
-    size: { type: String, default: "giant" },
     status: String,
     suffixIcon: String,
     tabindex: String,
@@ -154,18 +153,6 @@ $--color-warning-500: #ffaa00;
     &.has-icon {
       padding-right: 48px;
     }
-    &.is-danger {
-      border-color: $--color-danger-500;
-    }
-    &.is-info {
-      border-color: $--color-info-500;
-    }
-    &.is-success {
-      border-color: $--color-success-500;
-    }
-    &.is-warning {
-      border-color: $--color-warning-500;
-    }
     &.is-focus {
       border-color: $--color-primary-500;
 
@@ -181,6 +168,41 @@ $--color-warning-500: #ffaa00;
         color: rgba($--color-basic-600, 0.48);
       }
     }
+
+    &.is-primary {
+      color: $--color-basic-100;
+      background: rgba($--color-basic-100, 0.24);
+      border-color: rgba($--color-basic-100, 0.4);
+
+      &::placeholder {
+        color: $--color-basic-100;
+      }
+      &:focus {
+        border-color: $--color-basic-100;
+        background: rgba($--color-basic-100, 0.32);
+      }
+      &:hover:not(:disabled) {
+        border-color: $--color-basic-100;
+        background: rgba($--color-basic-100, 0.32);
+      }
+      &:disabled {
+        border-color: rgba($--color-basic-100, 0.4);
+        background: rgba($--color-basic-100, 0.16);
+      }
+    }
+
+    &.is-danger {
+      border-color: $--color-danger-500;
+    }
+    &.is-info {
+      border-color: $--color-info-500;
+    }
+    &.is-success {
+      border-color: $--color-success-500;
+    }
+    &.is-warning {
+      border-color: $--color-warning-500;
+    }
   }
 
   #{&}__icon {
@@ -192,6 +214,18 @@ $--color-warning-500: #ffaa00;
     font-size: 24px;
     color: $--color-basic-600;
     transition: 0.15s;
+
+    &.is-disabled {
+      color: rgba($--color-basic-600, 0.4);
+    }
+
+    &.is-primary {
+      color: $--color-basic-100;
+
+      &.is-disabled {
+        color: rgba($--color-basic-400, 0.4);
+      }
+    }
 
     &.is-danger {
       color: $--color-danger-500;
@@ -207,9 +241,10 @@ $--color-warning-500: #ffaa00;
     }
     &.is-focus {
       color: $--color-primary-500;
-    }
-    &.is-disabled {
-      color: rgba($--color-basic-600, 0.4);
+
+      &.is-primary {
+        color: $--color-basic-100;
+      }
     }
   }
 }
