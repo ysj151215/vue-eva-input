@@ -4,7 +4,7 @@
   "description": "A beautiful input component based on Eva Design System and Vue.",
   "main": "./dist/vue-eva-input.js",
   "repository": "git@github.com:ysj151215/vue-eva-input.git",
-  "author": "ysj151215 <jailjt.editor@gmail.com>",
+  "author": "ysj151215 <coder_ysj@outlook.com>",
   "license": "MIT",
   "scripts": {
     "dev": "vue serve src/EvaInput.vue",
