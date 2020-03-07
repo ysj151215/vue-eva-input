@@ -19,27 +19,17 @@
       :type="type"
       :value="stringValue"
       @blur="handleBlur"
-      @change="handleChange"
       @focus="handleFocus"
       @input="handleInput"
     />
 
-    <i
-      class="eva-input__icon eva"
-      :class="[`eva-${suffixIcon}`, {
-        'is-danger': status === 'danger',
-        'is-disabled': disabled,
-        'is-focus': isFocus,
-        'is-info': status === 'info',
-        'is-primary': primary,
-        'is-success': status === 'success',
-        'is-warning': status === 'warning'
-      }]"
-    />
+    <i class="eva-input__icon" :data-eva="suffixIcon" />
   </div>
 </template>
 
 <script>
+import * as eva from "eva-icons";
+
 export default {
   name: "EvaInput",
   inheritAttrs: false,
@@ -71,13 +61,13 @@ export default {
       }
     }
   },
+  mounted() {
+    eva.replace();
+  },
   methods: {
     handleBlur(e) {
       this.isFocus = false;
       this.$emit("blur", e);
-    },
-    handleChange(e) {
-      this.$emit("change", e.target.value);
     },
     handleFocus(e) {
       this.isFocus = true;
@@ -92,9 +82,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap");
-@import "~eva-icons/style/eva-icons.css";
 
 $--color-basic-100: #ffffff;
 $--color-basic-200: #f7f9fc;
@@ -116,7 +105,7 @@ $--color-warning-500: #ffaa00;
   position: relative;
   width: 343px;
 
-  #{&}__inner {
+  .eva-input__inner {
     box-sizing: border-box;
     display: block;
     height: 48px;
@@ -153,19 +142,16 @@ $--color-warning-500: #ffaa00;
     &.has-icon {
       padding-right: 48px;
     }
-    &.is-focus {
-      border-color: $--color-primary-500;
-
-      &::placeholder {
-        font-weight: 600;
-      }
-    }
     &:disabled {
       cursor: not-allowed;
       border: 1px solid $--color-basic-400;
 
       &::placeholder {
         color: rgba($--color-basic-600, 0.48);
+      }
+
+      ~ .eva-input__icon {
+        fill: rgba($--color-basic-600, 0.4);
       }
     }
 
@@ -189,63 +175,70 @@ $--color-warning-500: #ffaa00;
         border-color: rgba($--color-basic-100, 0.4);
         background: rgba($--color-basic-100, 0.16);
       }
+
+      ~ .eva-input__icon {
+        fill: $--color-basic-100;
+
+        &.is-disabled {
+          fill: rgba($--color-basic-400, 0.4);
+        }
+      }
     }
 
     &.is-danger {
       border-color: $--color-danger-500;
+
+      ~ .eva-input__icon {
+        fill: $--color-danger-500;
+      }
     }
     &.is-info {
       border-color: $--color-info-500;
+
+      ~ .eva-input__icon {
+        fill: $--color-info-500;
+      }
     }
     &.is-success {
       border-color: $--color-success-500;
+
+      ~ .eva-input__icon {
+        fill: $--color-success-500;
+      }
     }
     &.is-warning {
       border-color: $--color-warning-500;
+
+      ~ .eva-input__icon {
+        fill: $--color-warning-500;
+      }
+    }
+    &.is-focus {
+      border-color: $--color-primary-500 !important;
+
+      &::placeholder {
+        font-weight: 600;
+      }
+
+      ~ .eva-input__icon {
+        fill: $--color-primary-500;
+
+        &.is-primary {
+          fill: $--color-basic-100;
+        }
+      }
     }
   }
 
-  #{&}__icon {
+  .eva-input__icon {
     pointer-events: none;
     display: block;
     position: absolute;
     top: 12px;
     right: 12px;
     font-size: 24px;
-    color: $--color-basic-600;
+    fill: $--color-basic-600;
     transition: 0.15s;
-
-    &.is-disabled {
-      color: rgba($--color-basic-600, 0.4);
-    }
-
-    &.is-primary {
-      color: $--color-basic-100;
-
-      &.is-disabled {
-        color: rgba($--color-basic-400, 0.4);
-      }
-    }
-
-    &.is-danger {
-      color: $--color-danger-500;
-    }
-    &.is-info {
-      color: $--color-info-500;
-    }
-    &.is-success {
-      color: $--color-success-500;
-    }
-    &.is-warning {
-      color: $--color-warning-500;
-    }
-    &.is-focus {
-      color: $--color-primary-500;
-
-      &.is-primary {
-        color: $--color-basic-100;
-      }
-    }
   }
 }
 </style>
