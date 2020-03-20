@@ -2,6 +2,9 @@
 
 ![vue eva input design.](https://i.imgur.com/LWiilqr.png)
 
+## Demo
+[CodeSandBox](https://codesandbox.io/s/fragrant-shadow-4qck2)
+
 ## Install
 
 ```

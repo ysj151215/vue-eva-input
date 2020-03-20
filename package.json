@@ -1,6 +1,6 @@
 {
   "name": "vue-eva-input",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "A beautiful input component based on Eva Design System and Vue.",
   "main": "dist/vue-eva-input.min.js",
   "repository": "git@github.com:ysj151215/vue-eva-input.git",
