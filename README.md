@@ -1,6 +1,6 @@
 # Eva Input for Vue.js
 
-![vue eva input design.](./assets/design.png)
+![vue eva input design.](https://i.imgur.com/LWiilqr.png)
 
 ## Install
 
