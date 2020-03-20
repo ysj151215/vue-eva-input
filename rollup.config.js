@@ -1,17 +1,18 @@
-import commonjs from "rollup-plugin-commonjs";
-import css from "rollup-plugin-css-only";
+import babel from "rollup-plugin-babel";
 import vue from "rollup-plugin-vue";
 
 export default {
   external: ["eva-icons"],
   input: "src/index.js",
   output: {
-    exports: "named",
-    name: "eva"
+    file: "dist/vue-eva-input.min.js",
+    format: "umd",
+    name: "vue-eva-input"
   },
   plugins: [
-    css({ output: "vue-eva-input.css" }),
-    commonjs(),
+    babel({
+      babelrc: true
+    }),
     vue({ css: true, compileTemplate: true })
   ]
 };

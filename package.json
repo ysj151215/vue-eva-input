@@ -1,12 +1,8 @@
 {
   "name": "vue-eva-input",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A beautiful input component based on Eva Design System and Vue.",
   "main": "dist/vue-eva-input.min.js",
-  "module": "dist/vue-eva-input.esm.js",
-  "browser": {
-    "./sfc": "src/EvaInput.vue"
-  },
   "repository": "git@github.com:ysj151215/vue-eva-input.git",
   "keywords": [
     "vue",
@@ -19,24 +15,22 @@
   "license": "MIT",
   "scripts": {
     "dev": "vue serve src/EvaInput.vue",
-    "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
-    "build:umd": "rollup --config rollup.config.js --format umd --file dist/vue-eva-input.umd.js",
-    "build:es": "rollup --config rollup.config.js --format es --file dist/vue-eva-input.esm.js",
-    "build:unpkg": "rollup --config rollup.config.js --format iife --file dist/vue-eva-input.min.js"
+    "build": "rollup -c"
   },
-  "files": [
-    "dist/*"
-  ],
   "devDependencies": {
+    "@babel/core": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
     "node-sass": "^4.13.0",
     "rollup": "^2.0.0",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-css-only": "^2.0.0",
+    "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-vue": "^5.1.6",
     "sass-loader": "^8.0.0",
     "vue-template-compiler": "^2.6.11"
   },
   "dependencies": {
     "eva-icons": "^1.1.2"
+  },
+  "engines": {
+    "node": ">=8"
   }
 }
