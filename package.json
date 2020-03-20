@@ -2,9 +2,8 @@
   "name": "vue-eva-input",
   "version": "0.0.1",
   "description": "A beautiful input component based on Eva Design System and Vue.",
-  "main": "dist/vue-eva-input.umd.js",
+  "main": "dist/vue-eva-input.min.js",
   "module": "dist/vue-eva-input.esm.js",
-  "unpkg": "dist/vue-eva-input.min.js",
   "browser": {
     "./sfc": "src/EvaInput.vue"
   },
