@@ -8,6 +8,13 @@
     "./sfc": "src/EvaInput.vue"
   },
   "repository": "git@github.com:ysj151215/vue-eva-input.git",
+  "keywords": [
+    "vue",
+    "vue-component",
+    "vue-eva-input",
+    "eva-icon",
+    "eva-input"
+  ],
   "author": "ysj151215 <coder_ysj@outlook.com>",
   "license": "MIT",
   "scripts": {
