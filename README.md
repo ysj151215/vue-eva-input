@@ -2,13 +2,18 @@
 
 ![vue eva input design.](https://i.imgur.com/LWiilqr.png)
 
-## Demo
-[CodeSandBox](https://codesandbox.io/s/fragrant-shadow-4qck2)
+## Example
+
+[![Edit fragrant-shadow-4qck2](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/fragrant-shadow-4qck2?fontsize=14&hidenavigation=1&theme=dark)
 
 ## Install
 
 ```
-npm install --save vue-eva-input
+$ npm install --save vue-eva-input
+```
+
+```
+$ yarn add vue-eva-input
 ```
 
 ## Usage
