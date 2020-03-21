@@ -117,12 +117,17 @@ $--color-warning-500: #ffaa00;
     line-height: 24px;
     color: $--color-basic-800;
     background: $--color-basic-200;
+    background-image: none;
     border: 1px solid $--color-basic-400;
     border-radius: 12px;
     white-space: nowrap;
     text-overflow: ellipsis;
-    outline: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
     overflow: hidden;
+    box-shadow: none;
     transition: 0.15s;
 
     &::placeholder {
