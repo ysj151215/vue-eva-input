@@ -1,6 +1,6 @@
 # Eva Input for Vue.js
 
-![vue eva input design.](https://i.imgur.com/LWiilqr.png)
+A beautiful input component based on Eva Design System and Vue.
 
 ## Example
 
@@ -19,10 +19,10 @@ $ yarn add vue-eva-input
 ## Usage
 
 ```javascript
-import Vue from "vue";
-import VueEvaInput from "vue-eva-input";
+import Vue from 'vue'
+import VueEvaInput from 'vue-eva-input'
 
-Vue.use(VueEvaInput);
+Vue.use(VueEvaInput)
 ```
 
 ### Props

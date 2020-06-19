@@ -28,62 +28,62 @@
 </template>
 
 <script>
-import * as eva from "eva-icons";
+import * as eva from 'eva-icons'
 
 export default {
-  name: "EvaInput",
+  name: 'EvaInput',
   inheritAttrs: false,
   props: {
-    autocomplete: { type: String, default: "off" },
+    autocomplete: { type: String, default: 'off' },
     disabled: Boolean,
-    focusPlaceholder: { type: String, default: "Typing..." },
+    focusPlaceholder: { type: String, default: 'Typing...' },
     placeholder: String,
     primary: Boolean,
     readonly: Boolean,
     status: String,
     suffixIcon: String,
     tabindex: String,
-    type: { type: String, default: "text" },
+    type: { type: String, default: 'text' },
     value: [String, Number]
   },
   data() {
     return {
       isFocus: false,
       stringValue: null
-    };
+    }
   },
   computed: {
     stringPlaceholder() {
       if (this.isFocus) {
-        return this.focusPlaceholder;
+        return this.focusPlaceholder
       } else {
-        return this.placeholder || "";
+        return this.placeholder || ''
       }
     }
   },
   mounted() {
-    eva.replace();
+    eva.replace()
   },
   methods: {
     handleBlur(e) {
-      this.isFocus = false;
-      this.$emit("blur", e);
+      this.isFocus = false
+      this.$emit('blur', e)
     },
     handleFocus(e) {
-      this.isFocus = true;
-      this.$emit("focus", e);
+      this.isFocus = true
+      this.$emit('focus', e)
     },
     handleInput(e) {
-      let _value = e.target.value;
-      this.stringValue = _value || null;
-      this.$emit("input", _value || null);
+      let _value = e.target.value
+      this.stringValue = _value || null
+      this.$emit('input', _value || null)
     }
   }
-};
+}
 </script>
 
 <style lang="scss">
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');
 
 $--color-basic-100: #ffffff;
 $--color-basic-200: #f7f9fc;
@@ -111,7 +111,7 @@ $--color-warning-500: #ffaa00;
     height: 48px;
     width: 100%;
     padding: 0 16px;
-    font-family: "Open Sans", sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 15px;
     font-weight: 600;
     line-height: 24px;

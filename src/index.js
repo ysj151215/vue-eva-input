@@ -1,9 +1,9 @@
-import EvaInput from "./EvaInput.vue";
+import EvaInput from './EvaInput.vue'
 
 const plugin = {
   install(Vue) {
-    Vue.component("EvaInput", EvaInput);
+    Vue.component('EvaInput', EvaInput)
   }
-};
+}
 
-export default plugin;
+export default plugin
