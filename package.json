@@ -2,7 +2,7 @@
   "name": "vue-eva-input",
   "version": "1.0.3",
   "description": "A beautiful input component based on Eva Design System and Vue.",
-  "main": "dist/vue-eva-input.min.js",
+  "main": "dist/vue-eva-input.umd.min.js",
   "repository": "git@github.com:ysj151215/vue-eva-input.git",
   "keywords": [
     "vue",
@@ -14,17 +14,13 @@
   "author": "ysj151215 <coder_ysj@outlook.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "vue serve src/EvaInput.vue",
-    "build": "rollup -c"
+    "dev": "npx vue serve src/EvaInput.vue",
+    "build": "npx vue build -t lib -n vue-eva-input src/index.js"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.7",
-    "@babel/preset-env": "^7.8.7",
+    "@babel/core": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
     "node-sass": "^4.13.0",
-    "rollup": "^2.0.0",
-    "rollup-plugin-babel": "^4.4.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-vue": "^5.1.6",
     "sass-loader": "^8.0.0",
     "vue-template-compiler": "^2.6.11"
   },
@@ -32,6 +28,6 @@
     "eva-icons": "^1.1.3"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   }
 }
