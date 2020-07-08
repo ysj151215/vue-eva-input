@@ -6,4 +6,5 @@ const plugin = {
   }
 }
 
+export { EvaInput }
 export default plugin

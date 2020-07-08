@@ -1,5 +1,7 @@
 # Eva Input for Vue.js
 
+> Wish you like it. ❤️
+
 A beautiful input component based on Eva Design System and Vue.
 
 ## Example
@@ -10,19 +12,31 @@ A beautiful input component based on Eva Design System and Vue.
 
 ```
 $ npm install --save vue-eva-input
-```
 
-```
 $ yarn add vue-eva-input
 ```
 
 ## Usage
 
 ```javascript
+// main.js
 import Vue from 'vue'
 import VueEvaInput from 'vue-eva-input'
 
 Vue.use(VueEvaInput)
+
+// Or single component file (*.vue)
+import { EvaInput } from 'vue-eva-input'
+
+export default {
+  components: { EvaInput }
+}
+```
+
+```html
+<template>
+  <eva-input v-model="value" />
+</template>
 ```
 
 ### Props
@@ -41,6 +55,28 @@ Vue.use(VueEvaInput)
 | type              |     String      |   "text"    |
 | value             | String / Number |    null     |
 
+### How to add input mask?
+
+```
+$ npm install --save vue-the-mask
+
+$ yarn add vue-the-mask
+```
+
+```javascript
+import Vue from 'vue'
+import VueTheMask from 'vue-the-mask'
+
+Vue.use(VueTheMask)
+// For more information, please visit https://github.com/vuejs-tips/vue-the-mask
+```
+
+```html
+<template>
+  <eva-input v-mask="'(##) ####-####'" v-model="value" />
+</template>
+```
+
 ## License
 
-[MIT](https://opensource.org/licenses/MIT)
+[MIT](https://github.com/ysj151215/vue-eva-input/blob/master/LICENSE)
