@@ -8,12 +8,18 @@ A beautiful input component based on Eva Design System and Vue.
 
 [![Edit fragrant-shadow-4qck2](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/fragrant-shadow-4qck2?fontsize=14&hidenavigation=1&theme=dark)
 
-## Install
+## Install (Before v1.0.5)
 
 ```
 $ npm install --save vue-eva-input
-
 $ yarn add vue-eva-input
+```
+
+## Install (Since v1.0.5)
+
+```
+$ npm install --save vue-eva-input eva-icons
+$ yarn add vue-eva-input eva-icons
 ```
 
 ## Usage
