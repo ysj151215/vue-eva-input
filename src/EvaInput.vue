@@ -22,7 +22,7 @@
       :value="stringValue"
       @blur="handleBlur"
       @focus="handleFocus"
-      @input="handleInput"
+      @input="handleInput($event.target.value)"
     />
 
     <i class="eva-input__icon" :data-eva="suffixIcon" />
@@ -63,6 +63,14 @@ export default {
       }
     },
   },
+  watch: {
+    value: {
+      handler() {
+        this.handleInput(this.value)
+      },
+      immediate: true,
+    },
+  },
   mounted() {
     eva.replace()
   },
@@ -76,7 +84,7 @@ export default {
       this.$emit('focus', e)
     },
     handleInput(e) {
-      let _value = e.target.value
+      let _value = e
       this.stringValue = _value || null
       this.$emit('input', _value || null)
     },
