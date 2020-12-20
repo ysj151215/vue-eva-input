@@ -3,15 +3,17 @@
     <input
       class="eva-input__inner"
       v-bind="$attrs"
-      :class="[{
-        'has-icon': suffixIcon,
-        'is-danger': status === 'danger',
-        'is-focus': isFocus,
-        'is-info': status === 'info',
-        'is-primary': primary,
-        'is-success': status === 'success',
-        'is-warning': status === 'warning'
-      }]"
+      :class="[
+        {
+          'has-icon': suffixIcon,
+          'is-danger': status === 'danger',
+          'is-focus': isFocus,
+          'is-info': status === 'info',
+          'is-primary': primary,
+          'is-success': status === 'success',
+          'is-warning': status === 'warning',
+        },
+      ]"
       :disabled="disabled"
       :placeholder="stringPlaceholder"
       :readonly="readonly"
@@ -44,12 +46,12 @@ export default {
     suffixIcon: String,
     tabindex: String,
     type: { type: String, default: 'text' },
-    value: [String, Number]
+    value: [String, Number],
   },
   data() {
     return {
       isFocus: false,
-      stringValue: null
+      stringValue: null,
     }
   },
   computed: {
@@ -59,7 +61,7 @@ export default {
       } else {
         return this.placeholder || ''
       }
-    }
+    },
   },
   mounted() {
     eva.replace()
@@ -77,8 +79,8 @@ export default {
       let _value = e.target.value
       this.stringValue = _value || null
       this.$emit('input', _value || null)
-    }
-  }
+    },
+  },
 }
 </script>
 
