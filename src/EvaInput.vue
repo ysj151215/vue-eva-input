@@ -3,24 +3,24 @@
     <input
       class="eva-input__inner"
       v-bind="$attrs"
-      :class="[{
-        'has-icon': suffixIcon,
-        'is-danger': status === 'danger',
-        'is-focus': isFocus,
-        'is-info': status === 'info',
-        'is-primary': primary,
-        'is-success': status === 'success',
-        'is-warning': status === 'warning'
-      }]"
-      :disabled="disabled"
+      :class="[
+        {
+          'has-icon': suffixIcon,
+          'is-danger': status === 'danger',
+          'is-focus': isFocus,
+          'is-info': status === 'info',
+          'is-primary': primary,
+          'is-success': status === 'success',
+          'is-warning': status === 'warning',
+        },
+      ]"
       :placeholder="stringPlaceholder"
       :readonly="readonly"
-      :tabindex="tabindex"
       :type="type"
       :value="stringValue"
       @blur="handleBlur"
       @focus="handleFocus"
-      @input="handleInput"
+      @input="handleInput($event.target.value)"
     />
 
     <i class="eva-input__icon" :data-eva="suffixIcon" />
@@ -35,21 +35,19 @@ export default {
   inheritAttrs: false,
   props: {
     autocomplete: { type: String, default: 'off' },
-    disabled: Boolean,
     focusPlaceholder: { type: String, default: 'Typing...' },
     placeholder: String,
     primary: Boolean,
     readonly: Boolean,
     status: String,
     suffixIcon: String,
-    tabindex: String,
     type: { type: String, default: 'text' },
-    value: [String, Number]
+    value: [String, Number],
   },
   data() {
     return {
       isFocus: false,
-      stringValue: null
+      stringValue: null,
     }
   },
   computed: {
@@ -59,7 +57,15 @@ export default {
       } else {
         return this.placeholder || ''
       }
-    }
+    },
+  },
+  watch: {
+    value: {
+      handler() {
+        this.handleInput(this.value)
+      },
+      immediate: true,
+    },
   },
   mounted() {
     eva.replace()
@@ -74,11 +80,11 @@ export default {
       this.$emit('focus', e)
     },
     handleInput(e) {
-      let _value = e.target.value
+      let _value = e
       this.stringValue = _value || null
       this.$emit('input', _value || null)
-    }
-  }
+    },
+  },
 }
 </script>
 

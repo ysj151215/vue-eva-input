@@ -1,4 +1,9 @@
-semi: false
-singleQuote: true
-printWidth: 80
-trailingComma: none
+{
+  "arrowParens": "avoid",
+  "bracketSpacing": true,
+  "printWidth": 100,
+  "semi": false,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "useTabs": false
+}
