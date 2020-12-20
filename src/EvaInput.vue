@@ -14,10 +14,8 @@
           'is-warning': status === 'warning',
         },
       ]"
-      :disabled="disabled"
       :placeholder="stringPlaceholder"
       :readonly="readonly"
-      :tabindex="tabindex"
       :type="type"
       :value="stringValue"
       @blur="handleBlur"
@@ -37,14 +35,12 @@ export default {
   inheritAttrs: false,
   props: {
     autocomplete: { type: String, default: 'off' },
-    disabled: Boolean,
     focusPlaceholder: { type: String, default: 'Typing...' },
     placeholder: String,
     primary: Boolean,
     readonly: Boolean,
     status: String,
     suffixIcon: String,
-    tabindex: String,
     type: { type: String, default: 'text' },
     value: [String, Number],
   },
