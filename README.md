@@ -24,13 +24,6 @@ import Vue from 'vue'
 import VueEvaInput from 'vue-eva-input'
 
 Vue.use(VueEvaInput)
-
-// Or single component file (*.vue)
-import { EvaInput } from 'vue-eva-input'
-
-export default {
-  components: { EvaInput }
-}
 ```
 
 ```html
