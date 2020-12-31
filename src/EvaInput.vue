@@ -3,6 +3,7 @@
     <input
       class="eva-input__inner"
       v-bind="$attrs"
+      v-on="listeners"
       :class="[
         {
           'has-icon': suffixIcon,
@@ -16,7 +17,6 @@
       ]"
       :placeholder="stringPlaceholder"
       :readonly="readonly"
-      :type="type"
       :value="stringValue"
       @blur="handleBlur"
       @focus="handleFocus"
@@ -34,14 +34,12 @@ export default {
   name: 'EvaInput',
   inheritAttrs: false,
   props: {
-    autocomplete: { type: String, default: 'off' },
     focusPlaceholder: { type: String, default: 'Typing...' },
     placeholder: String,
     primary: Boolean,
     readonly: Boolean,
     status: String,
     suffixIcon: String,
-    type: { type: String, default: 'text' },
     value: [String, Number],
   },
   data() {
@@ -51,6 +49,13 @@ export default {
     }
   },
   computed: {
+    listeners() {
+      const listeners = Object.assign({}, this.$listeners)
+      delete listeners.blur
+      delete listeners.focus
+      delete listeners.input
+      return listeners
+    },
     stringPlaceholder() {
       if (this.isFocus) {
         return this.focusPlaceholder
@@ -89,8 +94,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');
-
 $--color-basic-100: #ffffff;
 $--color-basic-200: #f7f9fc;
 $--color-basic-300: #edf1f7;
@@ -117,7 +120,6 @@ $--color-warning-500: #ffaa00;
     height: 48px;
     width: 100%;
     padding: 0 16px;
-    font-family: 'Open Sans', sans-serif;
     font-size: 15px;
     font-weight: 600;
     line-height: 24px;
