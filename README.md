@@ -2,18 +2,20 @@
 
 A beautiful input component based on Eva Design System and Vue.
 
-## Example
+## Demo
 
 [![Edit fragrant-shadow-4qck2](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/fragrant-shadow-4qck2?fontsize=14&hidenavigation=1&theme=dark)
 
-## Install (Before v1.0.5)
+## Installation
+
+### Before v1.0.5
 
 ```
 $ npm install --save vue-eva-input
 $ yarn add vue-eva-input
 ```
 
-## Install (Since v1.0.5)
+### Since v1.0.5
 
 ```
 $ npm install --save vue-eva-input eva-icons
@@ -36,7 +38,7 @@ Vue.use(VueEvaInput)
 </template>
 ```
 
-### Props
+## API Reference
 
 | props             |      type       |   default   | Description                                                  |
 | ----------------- | :-------------: | :---------: | ------------------------------------------------------------ |
@@ -45,6 +47,8 @@ Vue.use(VueEvaInput)
 | status            |     String      |    null     | "info", "warning", "danger", "success"                       |
 | suffix-icon       |     String      |    null     | see [official website](https://akveo.github.io/eva-icons/#/) |
 | value             | String / Number |    null     |
+
+## FAQ
 
 ### How to add input mask?
 
@@ -69,4 +73,4 @@ Vue.use(VueTheMask)
 
 ## License
 
-[MIT](https://github.com/ysj151215/vue-eva-input/blob/master/LICENSE)
+[MIT](https://choosealicense.com/licenses/mit/)
