@@ -3,17 +3,16 @@
     <input
       class="eva-input__inner"
       v-bind="$attrs"
-      v-on="listeners"
       :class="[
         {
           'has-icon': suffixIcon,
           'is-danger': status === 'danger',
-          'is-focus': isFocus,
+          'is-focus': isFocus === true,
           'is-info': status === 'info',
-          'is-primary': primary,
+          'is-primary': primary === true,
           'is-success': status === 'success',
-          'is-warning': status === 'warning',
-        },
+          'is-warning': status === 'warning'
+        }
       ]"
       :placeholder="stringPlaceholder"
       :readonly="readonly"
@@ -27,73 +26,79 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { computed, defineComponent, PropType, ref, watch, onMounted } from 'vue'
+import { InputStatus } from './types'
 import * as eva from 'eva-icons'
 
-export default {
+export default defineComponent({
   name: 'EvaInput',
   inheritAttrs: false,
   props: {
     focusPlaceholder: { type: String, default: 'Typing...' },
-    placeholder: String,
-    primary: Boolean,
-    readonly: Boolean,
-    status: String,
-    suffixIcon: String,
-    value: [String, Number],
+    modelValue: { type: [String, Number], default: '' },
+    placeholder: { type: String, default: '' },
+    primary: { type: Boolean, default: false },
+    readonly: { type: Boolean, default: false },
+    status: { type: String as PropType<InputStatus>, default: null },
+    suffixIcon: { type: String, default: null }
   },
-  data() {
-    return {
-      isFocus: false,
-      stringValue: null,
-    }
-  },
-  computed: {
-    listeners() {
-      const listeners = Object.assign({}, this.$listeners)
-      delete listeners.blur
-      delete listeners.focus
-      delete listeners.input
-      return listeners
-    },
-    stringPlaceholder() {
-      if (this.isFocus) {
-        return this.focusPlaceholder
+  setup(props, { emit }) {
+    let isFocus = ref(false)
+    let stringValue = ref('')
+
+    const stringPlaceholder = computed(() => {
+      if (isFocus.value === true) {
+        return props.focusPlaceholder
       } else {
-        return this.placeholder || ''
+        return props.placeholder || ''
       }
-    },
-  },
-  watch: {
-    value: {
-      handler() {
-        this.handleInput(this.value)
-      },
-      immediate: true,
-    },
-  },
-  mounted() {
-    eva.replace()
-  },
-  methods: {
-    handleBlur(e) {
-      this.isFocus = false
-      this.$emit('blur', e)
-    },
-    handleFocus(e) {
-      this.isFocus = true
-      this.$emit('focus', e)
-    },
-    handleInput(e) {
-      let _value = e
-      this.stringValue = _value || null
-      this.$emit('input', _value || null)
-    },
-  },
-}
+    })
+
+    const handleBlur = (e: FocusEvent) => {
+      isFocus.value = false
+      emit('blur', e)
+    }
+
+    const handleFocus = (e: FocusEvent) => {
+      isFocus.value = true
+      emit('focus', e)
+    }
+
+    const handleInput = (e: string | number) => {
+      if (e !== null) {
+        stringValue.value = e.toString()
+        emit('update:modelValue', e.toString())
+      } else {
+        emit('update:modelValue', null)
+      }
+    }
+
+    watch(
+      () => props.modelValue,
+      () => handleInput(props.modelValue),
+      { immediate: true }
+    )
+
+    /**
+     * Call eva.replace() to replace all elements with the data-eva data attribute with SVG elements.
+     * {@link https://github.com/akveo/eva-icons#javascript GitHub}.
+     */
+    onMounted(() => eva.replace())
+
+    return {
+      isFocus,
+      handleBlur,
+      handleFocus,
+      handleInput,
+      stringPlaceholder,
+      stringValue
+    }
+  }
+})
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 $--color-basic-100: #ffffff;
 $--color-basic-200: #f7f9fc;
 $--color-basic-300: #edf1f7;
