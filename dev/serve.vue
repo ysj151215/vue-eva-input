@@ -1,65 +1,64 @@
 <template>
   <div id="app">
     <div>
-      <eva-input placeholder="Type here..." v-model="strValue" />
+      <EvaInput placeholder="Type here..." v-model="strValue" />
     </div>
-    <div style="display: inline-block; background: #3366ff">
-      <eva-input placeholder="Type here..." primary v-model="strValue" />
-    </div>
-    <div>
-      <eva-input disabled placeholder="Disabled..." />
+    <div style="display: block; background: #3366ff; max-width: 480px">
+      <EvaInput placeholder="Type here..." primary v-model="strValue" />
     </div>
     <div>
-      <eva-input readonly value="Readonly..." />
+      <EvaInput disabled placeholder="Disabled..." />
     </div>
     <div>
-      <eva-input placeholder="Type here..." status="info" suffix-icon="github" v-model="strValue" />
+      <EvaInput readonly value="Readonly..." />
     </div>
     <div>
-      <eva-input
-        placeholder="Type here..."
-        status="warning"
-        suffix-icon="github"
-        v-model="strValue"
-      />
+      <EvaInput placeholder="Type here..." status="info" suffix-icon="github" v-model="strValue" />
     </div>
     <div>
-      <eva-input
-        placeholder="Type here..."
-        status="success"
-        suffix-icon="github"
-        v-model="strValue"
-      />
+      <EvaInput placeholder="Type here..." status="warning" suffix-icon="github" v-model="strValue" />
     </div>
     <div>
-      <eva-input
-        placeholder="Type here..."
-        status="danger"
-        suffix-icon="github"
-        v-model="strValue"
-      />
+      <EvaInput placeholder="Type here..." status="success" suffix-icon="github" v-model="strValue" />
+    </div>
+    <div>
+      <EvaInput placeholder="Type here..." status="danger" suffix-icon="github" v-model="strValue" />
     </div>
   </div>
 </template>
 
-<script>
-import Vue from 'vue'
-import EvaInput from '@/EvaInput.vue'
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
+import EvaInput from '../src/EvaInput.vue'
 
-export default Vue.extend({
-  name: 'ServeDev',
-  components: { EvaInput },
-  data() {
-    return {
-      strValue: '',
-    }
+export default defineComponent({
+  components: {
+    EvaInput
   },
+  setup() {
+    let strValue = ref('')
+
+    return {
+      strValue
+    }
+  }
 })
 </script>
 
 <style scoped>
+#app {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
 #app > div {
+  max-width: 480px;
   margin-bottom: 20px;
   padding: 10px;
+}
+
+.eva-input {
+  width: 100%;
 }
 </style>
