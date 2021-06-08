@@ -1,6 +1,8 @@
 # Eva Input for Vue.js
 
-A beautiful input component based on Eva Design System and Vue.
+A beautiful input component based on Eva Design System and Vue 3.
+
+**If you are using Vue 2, please install v1.x instead.**
 
 ## Demo
 
@@ -8,14 +10,12 @@ A beautiful input component based on Eva Design System and Vue.
 
 ## Installation
 
-### Before v1.0.5
-
 ```
 $ npm install --save vue-eva-input
 $ yarn add vue-eva-input
 ```
 
-### Since v1.0.5
+### Only v1.0.5
 
 ```
 $ npm install --save vue-eva-input eva-icons
@@ -48,6 +48,11 @@ Vue.use(VueEvaInput)
 | suffix-icon       |     String      |    null     | see [official website](https://akveo.github.io/eva-icons/#/) |
 | value             | String / Number |    null     |
 
+## Tech Stack
+
+- [vue-sfc-rollup](https://github.com/team-innovation/vue-sfc-rollup) - Quickly generate redistributable Vue components with Rollup.
+- [eva-icons](https://github.com/akveo/eva-icons) - A pack of more than 480 beautifully crafted Open Source icons.
+
 ## FAQ
 
 ### How to add input mask?
@@ -59,10 +64,11 @@ $ yarn add vue-the-mask
 
 ```javascript
 import Vue from 'vue'
+
+// For more information, please visit: https://github.com/vuejs-tips/vue-the-mask
 import VueTheMask from 'vue-the-mask'
 
 Vue.use(VueTheMask)
-// For more information, please visit https://github.com/vuejs-tips/vue-the-mask
 ```
 
 ```html

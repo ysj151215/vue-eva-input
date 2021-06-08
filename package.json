@@ -1,15 +1,18 @@
 {
   "name": "vue-eva-input",
-  "version": "1.0.6",
+  "version": "2.0.0",
   "description": "A beautiful input component based on Eva Design System and Vue.",
   "main": "dist/vue-eva-input.ssr.js",
   "browser": "dist/vue-eva-input.esm.js",
   "module": "dist/vue-eva-input.esm.js",
   "unpkg": "dist/vue-eva-input.min.js",
+  "types": "vue-eva-input.d.ts",
   "files": [
     "dist/*",
+    "vue-eva-input.d.ts",
     "src/**/*.vue"
   ],
+  "sideEffects": false,
   "repository": "git@github.com:ysj151215/vue-eva-input.git",
   "keywords": [
     "vue",
@@ -18,39 +21,47 @@
     "eva-icon",
     "eva-input"
   ],
-  "author": "ysj151215 <coder_ysj@outlook.com>",
+  "author": "ysj151215 <hi@imjay.dev>",
   "license": "MIT",
   "scripts": {
-    "serve": "vue-cli-service serve dev/serve.js",
+    "dev": "vue-cli-service serve dev/serve.ts --open",
     "build": "cross-env NODE_ENV=production rollup --config build/rollup.config.js",
-    "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
     "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
+    "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife"
   },
+  "dependencies": {
+    "eva-icons": "^1.1.3"
+  },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.5",
-    "@rollup/plugin-alias": "^2.2.0",
-    "@rollup/plugin-commonjs": "^11.1.0",
-    "@rollup/plugin-replace": "^2.3.2",
-    "@vue/cli-plugin-babel": "^4.3.1",
-    "@vue/cli-service": "^4.3.1",
-    "cross-env": "^7.0.2",
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.4",
+    "@babel/preset-typescript": "^7.13.0",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^19.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.0",
+    "@rollup/plugin-replace": "^2.4.2",
+    "@vue/cli-plugin-babel": "^4.5.13",
+    "@vue/cli-plugin-typescript": "^4.5.13",
+    "@vue/cli-service": "^4.5.13",
+    "@vue/compiler-sfc": "^3.0.11",
+    "cross-env": "^7.0.3",
     "minimist": "^1.2.5",
-    "node-sass": "^5.0.0",
-    "rollup": "^2.7.3",
-    "rollup-plugin-babel": "^4.4.0",
-    "rollup-plugin-terser": "^5.3.0",
-    "rollup-plugin-vue": "^5.1.6",
-    "sass-loader": "^10.1.0",
-    "vue": "^2.6.11",
-    "vue-template-compiler": "^2.6.11"
+    "node-sass": "5.0.0",
+    "postcss": "^8.3.0",
+    "rollup": "^2.51.0",
+    "rollup-plugin-postcss": "^4.0.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-vue": "^6.0.0",
+    "sass": "^1.34.1",
+    "sass-loader": "10.2.0",
+    "typescript": "^4.3.2",
+    "vue": "^3.0.11"
   },
   "peerDependencies": {
-    "eva-icons": "^1.1.3",
-    "vue": "^2.6.11"
+    "vue": "^3.0.11"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
   }
 }

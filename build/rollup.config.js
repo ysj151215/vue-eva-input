@@ -1,12 +1,56 @@
-import alias from '@rollup/plugin-alias'
-import babel from 'rollup-plugin-babel'
-import commonjs from '@rollup/plugin-commonjs'
 import fs from 'fs'
 import minimist from 'minimist'
-import path from 'path'
-import replace from '@rollup/plugin-replace'
-import vue from 'rollup-plugin-vue'
+import PostCSS from 'rollup-plugin-postcss'
 import { terser } from 'rollup-plugin-terser'
+import vue from 'rollup-plugin-vue'
+import babel from '@rollup/plugin-babel'
+import commonjs from '@rollup/plugin-commonjs'
+import resolve from '@rollup/plugin-node-resolve'
+import replace from '@rollup/plugin-replace'
+
+const argv = minimist(process.argv.slice(2))
+
+const baseConfig = {
+  input: 'src/entry.ts',
+  plugins: {
+    replace: {
+      preventAssignment: true,
+      'process.env.NODE_ENV': JSON.stringify('production')
+    },
+
+    // https://github.com/team-innovation/vue-sfc-rollup/issues/79#issuecomment-804787497
+    vue: {
+      preprocessStyles: true
+    },
+
+    postVue: [
+      resolve({
+        extensions: ['.js', '.ts', '.vue']
+      }),
+
+      // Process only `<style module>` blocks.
+      PostCSS({
+        modules: {
+          generateScopedName: '[local]___[hash:base64:5]'
+        },
+        include: /&module=.*\.css$/
+      }),
+
+      // Process all `<style>` blocks except `<style module>`.
+      PostCSS({ include: /(?<!&module=.*)\.css$/ }),
+
+      commonjs()
+    ],
+    babel: {
+      babelHelpers: 'bundled',
+      exclude: 'node_modules/**',
+      extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue']
+    }
+  }
+}
+
+// Extract babel preset-env config, to combine with esbrowserslist
+const babelPresetEnvConfig = require('../babel.config').presets.filter(entry => entry[0] === '@babel/preset-env')[0][1]
 
 // Get browserslist config and remove ie from es build targets
 const esbrowserslist = fs
@@ -15,52 +59,22 @@ const esbrowserslist = fs
   .split('\n')
   .filter(entry => entry && entry.substring(0, 2) !== 'ie')
 
-const argv = minimist(process.argv.slice(2))
-
-const projectRoot = path.resolve(__dirname, '..')
-
-const baseConfig = {
-  input: 'src/entry.js',
-  plugins: {
-    preVue: [
-      alias({
-        resolve: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
-        entries: {
-          '@': path.resolve(projectRoot, 'src'),
-        },
-      }),
-    ],
-    replace: {
-      'process.env.NODE_ENV': JSON.stringify('production'),
-      'process.env.ES_BUILD': JSON.stringify('false'),
-    },
-    vue: {
-      css: true,
-      template: {
-        isProduction: true,
-      },
-    },
-    babel: {
-      exclude: 'node_modules/**',
-      extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
-    },
-  },
-}
-
-// ESM/UMD/IIFE shared settings: externals
-// Refer to https://rollupjs.org/guide/en/#warning-treating-module-as-external-dependency
+/**
+ * ESM/UMD/IIFE shared settings: externals
+ * {@link https://rollupjs.org/guide/en/#warning-treating-module-as-external-dependency}.
+ */
 const external = [
   // list external dependencies, exactly the way it is written in the import statement.
   // eg. 'jquery'
-  'vue',
+  'vue'
 ]
 
-// UMD/IIFE shared settings: output.globals
-// Refer to https://rollupjs.org/guide/en#output-globals for details
+/**
+ * UMD/IIFE shared settings: output.globals
+ * {@link https://rollupjs.org/guide/en#output-globals}.
+ */
 const globals = {
-  // Provide global variable names to replace your external imports
-  // eg. jquery: '$'
-  vue: 'Vue',
+  vue: 'Vue'
 }
 
 // Customize configs for individual targets
@@ -68,32 +82,30 @@ const buildFormats = []
 if (!argv.format || argv.format === 'es') {
   const esConfig = {
     ...baseConfig,
+    input: 'src/entry.esm.ts',
     external,
     output: {
       file: 'dist/vue-eva-input.esm.js',
       format: 'esm',
-      exports: 'named',
+      exports: 'named'
     },
     plugins: [
-      replace({
-        ...baseConfig.plugins.replace,
-        'process.env.ES_BUILD': JSON.stringify('true'),
-      }),
-      ...baseConfig.plugins.preVue,
+      replace(baseConfig.plugins.replace),
       vue(baseConfig.plugins.vue),
+      ...baseConfig.plugins.postVue,
       babel({
         ...baseConfig.plugins.babel,
         presets: [
           [
             '@babel/preset-env',
             {
-              targets: esbrowserslist,
-            },
-          ],
-        ],
-      }),
-      commonjs(),
-    ],
+              ...babelPresetEnvConfig,
+              targets: esbrowserslist
+            }
+          ]
+        ]
+      })
+    ]
   }
   buildFormats.push(esConfig)
 }
@@ -107,22 +119,10 @@ if (!argv.format || argv.format === 'cjs') {
       file: 'dist/vue-eva-input.ssr.js',
       format: 'cjs',
       name: 'VueEvaInput',
-      exports: 'named',
-      globals,
+      exports: 'auto',
+      globals
     },
-    plugins: [
-      replace(baseConfig.plugins.replace),
-      ...baseConfig.plugins.preVue,
-      vue({
-        ...baseConfig.plugins.vue,
-        template: {
-          ...baseConfig.plugins.vue.template,
-          optimizeSSR: true,
-        },
-      }),
-      babel(baseConfig.plugins.babel),
-      commonjs(),
-    ],
+    plugins: [replace(baseConfig.plugins.replace), vue(baseConfig.plugins.vue), ...baseConfig.plugins.postVue, babel(baseConfig.plugins.babel)]
   }
   buildFormats.push(umdConfig)
 }
@@ -136,24 +136,22 @@ if (!argv.format || argv.format === 'iife') {
       file: 'dist/vue-eva-input.min.js',
       format: 'iife',
       name: 'VueEvaInput',
-      exports: 'named',
-      globals,
+      exports: 'auto',
+      globals
     },
     plugins: [
       replace(baseConfig.plugins.replace),
-      ...baseConfig.plugins.preVue,
       vue(baseConfig.plugins.vue),
+      ...baseConfig.plugins.postVue,
       babel(baseConfig.plugins.babel),
-      commonjs(),
       terser({
         output: {
-          ecma: 5,
-        },
-      }),
-    ],
+          ecma: 5
+        }
+      })
+    ]
   }
   buildFormats.push(unpkgConfig)
 }
 
-// Export config
 export default buildFormats
