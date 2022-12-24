@@ -1,12 +1,8 @@
-# Eva Input for Vue.js
+# Eva Input for Vue.js [DEPRECATED]
 
 A beautiful input component based on Eva Design System and Vue 3.
 
 **If you are using Vue 2, please install v1.x instead.**
-
-## Demo
-
-[![Edit fragrant-shadow-4qck2](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/fragrant-shadow-4qck2?fontsize=14&hidenavigation=1&theme=dark)
 
 ## Installation
 
